@@ -19,6 +19,7 @@ def display_board(board)
 end
 
 def input_to_index(input)
+    
     (input.to_i) - 1
 end
 
@@ -70,21 +71,32 @@ def turn(board)
 end
 
 def won?(board)
-    winning_combo = nil #nil will return falsey if not true
-    WIN_COMBINATIONS.each do |combo|
-        #combo = [0,1,2]
-        #combo[0] = position 1 in the combo which is position 0 on the board
-        #so instead of using board[index]
-        #use board[combo[0]] same as board[index 1] and see if it's an X or O or " "
-        #next combo it checks is [3,4,5] so combo[0] would be positiong 3 on the board
-        if board[combo[0]] == "X" && board[combo[1]] == "X" && board[combo[2]] == "X" 
-            winning_combo = combo
-        elsif board[combo[0]] == "O" && board[combo[1]] == "O" && board[combo[2]] == "O"
-            winning_combo = combo
+    WIN_COMBINATIONS.any? do |win|
+        #binding.pry
+        if board[win[0]] == "X" && board[win[1]] == "X" && board[win[2]] == "X"
+            win
+        elsif board[win[0]] ==  "O" && board[win[1]] == "O" && board[win[2]] == "O"
+        win
+        else false
         end
-        
     end
-    winning_combo
+    end
+
+    # winning_combo = nil #nil will return falsey if not true
+    # WIN_COMBINATIONS.each do |combo|
+    #     #combo = [0,1,2]
+    #     #combo[0] = position 1 in the combo which is position 0 on the board
+    #     #so instead of using board[index]
+    #     #use board[combo[0]] same as board[index 1] and see if it's an X or O or " "
+    #     #next combo it checks is [3,4,5] so combo[0] would be positiong 3 on the board
+    #     if board[combo[0]] == "X" && board[combo[1]] == "X" && board[combo[2]] == "X" 
+    #         winning_combo = combo
+    #     elsif board[combo[0]] == "O" && board[combo[1]] == "O" && board[combo[2]] == "O"
+    #         winning_combo = combo
+    #     end
+        
+    # end
+    # winning_combo
     # WIN_COMBINATIONS.find do |combo|
     #     #binding.pry
     #     #what is a board 
@@ -100,7 +112,7 @@ def won?(board)
     #     #need this because "","","" would also equal a win without it
     #end
     
-end
+
 
 def full?(board)
     board.all? { |token| token == 'X' || token == 'O' }
